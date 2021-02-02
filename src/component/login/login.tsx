@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link as Page} from 'react-router-dom';
+import axios from 'axios';
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,8 +42,15 @@ export default function SignIn() {
   let email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
 
-  const getValues = () => {
-    console.log(email?.current?.value, password?.current?.value);
+  const getValues = async() => {
+    let body = {email: email?.current?.value, password: password?.current?.value};
+    const responce = await axios.post('http://localhost:8000/api/login', body);
+    if(responce.data.token){
+        alert(responce.data.token)
+    } else {
+        alert(responce.data.message)
+    }
+
 }
 
   return (
