@@ -1,4 +1,5 @@
 import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import logo from './../../logo.svg';
 import Login from './../login/login';
 
@@ -20,8 +21,8 @@ const navbar = () => {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                    <Nav.Link href="#features">Login</Nav.Link>
-                    <Nav.Link href="#pricing">SingUp</Nav.Link>
+                    <Link className="nav-link" to="/">Login</Link>
+                    <Link className="nav-link" to="singup">SingUp</Link>
                     </Nav>
                    </Navbar.Collapse>
             </Navbar>

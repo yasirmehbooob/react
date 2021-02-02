@@ -41,9 +41,10 @@
     ]
   },
   "devDependencies": {
-    "@types/react-bootstrap": "^0.32.25",
     "@types/react-router-dom": "^5.1.7",
+    "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
-    "react-bootstrap": "^1.4.3"
+    "react-bootstrap": "^1.4.3",
+    "react-router-dom": "^5.2.0"
   }
 }
