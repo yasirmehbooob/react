@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,8 +9,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link as Page} from 'react-router-dom';
+import { Link as Page, useHistory} from 'react-router-dom';
 import axios from 'axios';
+import { Alert } from '@material-ui/lab';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,16 +41,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const [error, setError] = useState(false);
   let email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
+  let history = useHistory();
 
   const getValues = async() => {
     let body = {email: email?.current?.value, password: password?.current?.value};
     const responce = await axios.post('http://localhost:8000/api/login', body);
     if(responce.data.token){
-        alert(responce.data.token)
+      setError(false);
+      localStorage.setItem("token", responce.data.token);
+      history.push('/dashboard');
     } else {
-        alert(responce.data.message)
+        setError(true);
     }
 
 }
@@ -56,6 +62,7 @@ export default function SignIn() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      { error ? <Alert severity="error">Please enter correct email or password</Alert> : ''}
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
